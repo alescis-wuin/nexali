@@ -1,0 +1,38 @@
+# .NET
+bin/
+obj/
+artifacts/
+TestResults/
+coverage/
+*.trx
+*.coverage
+*.coveragexml
+
+# IDEs and editors
+.vs/
+.idea/
+.vscode/*.log
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.local
+*.secrets
+secrets/
+.nexali-bootstrap-backup/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
