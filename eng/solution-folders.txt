@@ -1,0 +1,10 @@
+# Canonical solution-folder paths for Phase 1.3.
+# Empty solution folders are not manually injected into Nexali.sln.
+# Phase 1.3 materializes these paths through `dotnet sln ... add --solution-folder`.
+src/Server
+src/Modules
+src/Libraries
+src/Clients/Web
+src/Clients/Avalonia
+src/Tools
+tests

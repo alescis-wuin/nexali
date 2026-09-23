@@ -27,7 +27,8 @@ required_files=(
   .github/ISSUE_TEMPLATE/bug.yml .github/ISSUE_TEMPLATE/feature.yml .github/ISSUE_TEMPLATE/config.yml
   docs/architecture/README.md docs/architecture/principles.md docs/architecture/modules.md docs/architecture/dependency-rules.md
   docs/security/README.md docs/security/threat-model.md docs/security/e2ee.md docs/security/security-spikes.md
-  docs/development/README.md docs/deployment/README.md docs/protocols/README.md docs/testing/README.md docs/adr/README.md
+  docs/development/README.md docs/development/solution.md docs/deployment/README.md docs/protocols/README.md docs/testing/README.md docs/adr/README.md
+  Nexali.sln eng/solution-folders.txt scripts/validate-solution.sh
 )
 required_dirs=(
   .github/ISSUE_TEMPLATE docs/adr docs/architecture docs/development docs/deployment docs/protocols docs/security docs/testing
@@ -50,6 +51,9 @@ adr_count="$(find "$repo_root/docs/adr" -maxdepth 1 -type f -name 'ADR-*.md' | w
 if find "$repo_root" -maxdepth 4 -type f \( -name '.env' -o -name '*.secrets' \) -print -quit | grep -q .; then
   die "Potential local secret file detected."
 fi
+
+log CHECK "Checking solution baseline."
+"$repo_root/scripts/validate-solution.sh"
 
 if git -C "$repo_root" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   git -C "$repo_root" diff --check
