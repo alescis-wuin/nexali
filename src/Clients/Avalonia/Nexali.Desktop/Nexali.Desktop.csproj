@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="../Nexali.App/Nexali.App.csproj" />
   </ItemGroup>
 

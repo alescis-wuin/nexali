@@ -1,0 +1,12 @@
+# package	version	scope	status
+Microsoft.AspNetCore.Components.WebAssembly	10.0.12	web	active
+Microsoft.AspNetCore.Components.WebAssembly.DevServer	10.0.12	web	pinned-deferred
+Avalonia	12.1.3	avalonia-shared	active
+Avalonia.Desktop	12.1.3	desktop	active
+Avalonia.Android	12.1.3	android	pinned-deferred
+Avalonia.iOS	12.1.3	ios	pinned-deferred
+Avalonia.Themes.Fluent	12.1.3	avalonia-shared	active
+CommunityToolkit.Mvvm	8.4.2	avalonia-shared	active
+Microsoft.NET.Test.Sdk	18.10.1	tests	active
+xunit.v3	4.0.1	tests	active
+xunit.runner.visualstudio	4.0.0	tests	active

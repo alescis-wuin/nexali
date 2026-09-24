@@ -1,0 +1,10 @@
+<Project>
+  <Target Name="NexaliValidateCentralPackageManagement"
+          BeforeTargets="CollectPackageReferences"
+          Condition="'@(PackageReference)' != ''">
+    <Error Condition="'$(ManagePackageVersionsCentrally)' != 'true'"
+           Text="Nexali requires NuGet Central Package Management for every PackageReference." />
+    <Error Condition="'$(LangVersion)' == 'preview'"
+           Text="Nexali does not allow preview C# language versions." />
+  </Target>
+</Project>

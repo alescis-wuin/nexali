@@ -16,15 +16,14 @@ die(){ log ERROR "$1" >&2; exit 1; }
 [[ -f "$manifest" ]] || die "Missing eng/projects.tsv."
 [[ -f "$refs_manifest" ]] || die "Missing eng/project-references.tsv."
 [[ -f "$solution" ]] || die "Missing Nexali.sln."
-command -v dotnet >/dev/null 2>&1 || die ".NET SDK is required for Phase 1.4 validation."
+command -v dotnet >/dev/null 2>&1 || die ".NET SDK is required for project validation."
 sdk="$(dotnet --version 2>/dev/null || true)"
-[[ "$sdk" == 10.* ]] || die "Phase 1.4 requires a .NET 10 SDK (found: ${sdk:-unknown})."
+[[ "$sdk" == 10.* ]] || die "Nexali requires a .NET 10 SDK (found: ${sdk:-unknown})."
 
 mapfile -t rows < <(grep -Ev '^[[:space:]]*(#|$)' "$manifest")
 [[ "${#rows[@]}" -eq 40 ]] || die "Expected 40 projects in eng/projects.tsv, found ${#rows[@]}."
 log OK "Canonical project catalog contains 40 projects."
 
-# Expected role counts protect against accidental catalog drift.
 declare -A expected=(
   [server-host]=1 [module]=7 [contracts]=7 [future-module]=4 [library]=4
   [web-client-shell]=1 [avalonia-shared-shell]=1 [platform-head-shell]=3
@@ -41,13 +40,8 @@ while IFS=$'\t' read -r role folder project; do
   [[ -f "$repo_root/$project" ]] || die "Missing project: $project"
   grep -Fq '<TargetFramework>net10.0</TargetFramework>' "$repo_root/$project" || die "Project does not target net10.0: $project"
 done < "$manifest"
+log OK "All 40 project identities still target the Phase 1 baseline net10.0 TFM."
 
-if grep -R --include='*.csproj' -n '<PackageReference' "$repo_root/src" "$repo_root/tests" >/dev/null 2>&1; then
-  die "External PackageReference found during Phase 1.4; package selection belongs to Phase 1.5."
-fi
-log OK "All project shells target net10.0 and contain no external PackageReference."
-
-# Validate canonical ProjectReference edges.
 while IFS=$'\t' read -r source target; do
   [[ -z "$source" || "$source" == \#* ]] && continue
   [[ -f "$repo_root/$source" ]] || die "Reference source missing: $source"
@@ -73,9 +67,9 @@ for top in src/Server src/Modules src/Libraries src/Clients/Web src/Clients/Aval
 done
 log OK "Canonical top-level solution folders are materialized."
 
-log CHECK "Restoring project shells."
+log CHECK "Restoring canonical projects."
 DOTNET_NOLOGO=1 DOTNET_CLI_TELEMETRY_OPTOUT=1 DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 dotnet restore "$solution" --nologo >/dev/null
-log CHECK "Building project shells."
+log CHECK "Building canonical projects."
 DOTNET_NOLOGO=1 DOTNET_CLI_TELEMETRY_OPTOUT=1 DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 dotnet build "$solution" --no-restore --nologo >/dev/null
 log OK "Restore and build succeeded."
-log OK "Nexali Phase 1.4 project structure validation passed."
+log OK "Nexali project structure validation passed."

@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Themes.Fluent" />
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="../../../Libraries/Nexali.Client/Nexali.Client.csproj" />
     <ProjectReference Include="../../../Libraries/Nexali.Client.Sync/Nexali.Client.Sync.csproj" />
     <ProjectReference Include="../../../Libraries/Nexali.Cryptography/Nexali.Cryptography.csproj" />
