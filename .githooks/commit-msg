@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+repo_root="$(git rev-parse --show-toplevel)"
+# shellcheck source=/dev/null
+source "$repo_root/.githooks/lib/policy.sh"
+msg_file="$1"
+branch="$(nexali_current_branch)"
+[[ -n "$branch" ]] || { nexali_hook_error "Cannot validate commit message from detached HEAD."; exit 1; }
+if nexali_is_protected_branch "$branch"; then
+  nexali_hook_error "Direct commits on protected branch '$branch' are forbidden."
+  exit 1
+fi
+if ! nexali_is_valid_topic_branch "$branch"; then
+  nexali_hook_error "Invalid branch name '$branch'."
+  exit 1
+fi
+
+mapfile -t lines < "$msg_file"
+header="${lines[0]:-}"
+type="$(nexali_branch_type "$branch")"
+expected_prefix="$type($branch): "
+if [[ "$header" != "$expected_prefix"* ]]; then
+  nexali_hook_error "Invalid commit header. Expected: $expected_prefix<title>"
+  exit 1
+fi
+title="${header#"$expected_prefix"}"
+[[ -n "$title" ]] || { nexali_hook_error "Commit title must not be empty."; exit 1; }
+[[ "${lines[1]:-}" == "" ]] || { nexali_hook_error "Line 2 must be blank after the commit header."; exit 1; }
+
+content="$(cat "$msg_file")"
+grep -q '^Description:$' <<<"$content" || { nexali_hook_error "Commit body must contain a 'Description:' section."; exit 1; }
+grep -q '^Changes:$' <<<"$content" || { nexali_hook_error "Commit body must contain a 'Changes:' section."; exit 1; }
+
+description_ok=0
+changes_ok=0
+section=""
+while IFS= read -r line; do
+  case "$line" in
+    Description:) section="description"; continue ;;
+    Changes:) section="changes"; continue ;;
+    Footer:) section="footer"; continue ;;
+  esac
+  case "$section" in
+    description)
+      [[ -n "$line" ]] && description_ok=1
+      ;;
+    changes)
+      [[ "$line" == "- "* && ${#line} -gt 2 ]] && changes_ok=1
+      ;;
+    footer)
+      if [[ -n "$line" && ! "$line" =~ ^[A-Za-z][A-Za-z0-9-]*:[[:space:]].+ ]]; then
+        nexali_hook_error "Footer entries must use 'Key: value' format. Invalid line: $line"
+        exit 1
+      fi
+      ;;
+  esac
+done < "$msg_file"
+
+[[ "$description_ok" -eq 1 ]] || { nexali_hook_error "Description section must contain a non-empty description."; exit 1; }
+[[ "$changes_ok" -eq 1 ]] || { nexali_hook_error "Changes section must contain at least one '- ...' item."; exit 1; }

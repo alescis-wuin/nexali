@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+repo_root="$(git rev-parse --show-toplevel)"
+# shellcheck source=/dev/null
+source "$repo_root/.githooks/lib/policy.sh"
+branch="$(nexali_current_branch)"
+[[ -n "$branch" ]] || { nexali_hook_error "Commits from detached HEAD are forbidden."; exit 1; }
+if nexali_is_protected_branch "$branch"; then
+  nexali_hook_error "Direct commits on protected branch '$branch' are forbidden. Create a dedicated <type>/<name> branch from develop."
+  exit 1
+fi
+if ! nexali_is_valid_topic_branch "$branch"; then
+  nexali_hook_error "Invalid branch name '$branch'. Expected: <type>/<name> using an allowed type and lowercase kebab-case name."
+  nexali_hook_info "Allowed types: ${NEXALI_BRANCH_TYPES[*]}"
+  exit 1
+fi

@@ -2,6 +2,13 @@
 
 <!-- What problem does this PR solve? -->
 
+## Gitflow
+
+- Source branch: `<!-- <type>/<name> | develop | testing -->`
+- Target branch: `<!-- develop | testing | main -->`
+
+Expected promotion path: `<type>/<name> -> develop -> testing -> main`.
+
 ## Changes
 
 <!-- Summarize the important changes. -->
@@ -28,6 +35,10 @@
 
 ## Checklist
 
+- [ ] Source and target branches respect the Nexali Gitflow.
+- [ ] Branch name matches `<type>/<name>` when this is a topic branch.
+- [ ] Commit messages follow the required header/body/footer convention.
+- [ ] Commits are signed.
 - [ ] Tests were added or updated where relevant.
 - [ ] Architecture boundaries are respected.
 - [ ] No secrets or real user data were added.
