@@ -4,6 +4,7 @@ Nexali development rules are defined by the architecture baseline and repository
 
 - [Solution baseline](solution.md)
 - [Project structure baseline](project-structure.md)
+- [Build and package baseline](build-and-packages.md)
 - [Git workflow](git-workflow.md)
 
-The implementation sequence deliberately separates project identity (Phase 1.4) from centralized dependency and SDK/package pinning (Phase 1.5).
+The implementation sequence separates project identity (Phase 1.4), build/dependency governance (Phase 1.5), and analyzer/formatting policy (Phase 1.6).
