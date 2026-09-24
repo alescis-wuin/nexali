@@ -6,13 +6,23 @@
 
 The architecture baseline explicitly selected `Nexali.sln`. .NET 10 defaults `dotnet new sln` to the newer `.slnx` format, so Nexali intentionally uses the classic `.sln` format for this baseline. When regenerating an empty solution with the .NET 10 CLI, use `dotnet new sln --name Nexali --format sln`.
 
-## Phase 1.2 scope
+## Phase 1.2
 
-Phase 1.2 creates an empty solution only. It does not create projects and does not manually inject empty Visual Studio solution folders into the `.sln` file.
+Phase 1.2 created the empty solution and pinned the planned top-level solution folders in `eng/solution-folders.txt`.
 
-The canonical future solution-folder paths are stored in `eng/solution-folders.txt`. Phase 1.3 creates projects and adds them with `dotnet sln Nexali.sln add ... --solution-folder <path>`, which lets the .NET tooling materialize the virtual solution-folder hierarchy.
+## Phase 1.4
 
-Planned solution folders:
+Phase 1.4 creates the canonical project shells from `eng/projects.tsv` and materializes solution folders with:
+
+```bash
+dotnet sln Nexali.sln add <project> --solution-folder <folder>
+```
+
+Nested bounded-context folders below `src/Modules` are created by the .NET CLI from each manifest entry rather than by hand-editing the `.sln` format.
+
+The current `dotnet sln add` implementation may rewrite classic `.sln` files with a UTF-8 BOM and CRLF line endings. The Phase 1.4 automation normalizes `Nexali.sln` back to the repository convention (UTF-8 without BOM, LF) before validation and commit.
+
+Canonical top-level folders:
 
 - `src/Server`
 - `src/Modules`
@@ -28,6 +38,11 @@ Run:
 
 ```bash
 ./scripts/validate-solution.sh
+./scripts/validate-project-structure.sh
 ```
 
-The validator checks the solution format, required configurations, the planned folder manifest, accidental `.slnx` creation, and uses `dotnet sln Nexali.sln list` when a .NET SDK is available.
+## Deterministic classic `.sln` encoding
+
+The .NET CLI may rewrite classic `.sln` files using a UTF-8 BOM and/or CRLF line endings when projects are added. Nexali keeps repository text deterministic: `Nexali.sln` must be UTF-8 without BOM and LF-only.
+
+`./scripts/validate-solution.sh --normalize` performs byte-level normalization and rejects unexpected solution headers before writing the normalized file. The validator uses Python 3 for deterministic encoding checks and diagnostics.

@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/Server/Nexali.Api/Nexali.Api.csproj" />
+    <ProjectReference Include="../../src/Modules/Identity/Nexali.Modules.Identity/Nexali.Modules.Identity.csproj" />
+    <ProjectReference Include="../../src/Modules/Workspaces/Nexali.Modules.Workspaces/Nexali.Modules.Workspaces.csproj" />
+    <ProjectReference Include="../../src/Modules/Drive/Nexali.Modules.Drive/Nexali.Modules.Drive.csproj" />
+    <ProjectReference Include="../../src/Modules/Sharing/Nexali.Modules.Sharing/Nexali.Modules.Sharing.csproj" />
+    <ProjectReference Include="../../src/Modules/Sync/Nexali.Modules.Sync/Nexali.Modules.Sync.csproj" />
+    <ProjectReference Include="../../src/Modules/Administration/Nexali.Modules.Administration/Nexali.Modules.Administration.csproj" />
+    <ProjectReference Include="../../src/Modules/Audit/Nexali.Modules.Audit/Nexali.Modules.Audit.csproj" />
+    <ProjectReference Include="../../src/Modules/Identity/Nexali.Modules.Identity.Contracts/Nexali.Modules.Identity.Contracts.csproj" />
+    <ProjectReference Include="../../src/Modules/Workspaces/Nexali.Modules.Workspaces.Contracts/Nexali.Modules.Workspaces.Contracts.csproj" />
+    <ProjectReference Include="../../src/Modules/Drive/Nexali.Modules.Drive.Contracts/Nexali.Modules.Drive.Contracts.csproj" />
+    <ProjectReference Include="../../src/Modules/Sharing/Nexali.Modules.Sharing.Contracts/Nexali.Modules.Sharing.Contracts.csproj" />
+    <ProjectReference Include="../../src/Modules/Sync/Nexali.Modules.Sync.Contracts/Nexali.Modules.Sync.Contracts.csproj" />
+    <ProjectReference Include="../../src/Modules/Administration/Nexali.Modules.Administration.Contracts/Nexali.Modules.Administration.Contracts.csproj" />
+    <ProjectReference Include="../../src/Modules/Audit/Nexali.Modules.Audit.Contracts/Nexali.Modules.Audit.Contracts.csproj" />
+    <ProjectReference Include="../../src/Libraries/Nexali.Cryptography/Nexali.Cryptography.csproj" />
+    <ProjectReference Include="../../src/Libraries/Nexali.Sync.Protocol/Nexali.Sync.Protocol.csproj" />
+    <ProjectReference Include="../../src/Libraries/Nexali.Client/Nexali.Client.csproj" />
+    <ProjectReference Include="../../src/Libraries/Nexali.Client.Sync/Nexali.Client.Sync.csproj" />
+    <ProjectReference Include="../../src/Clients/Web/Nexali.Web/Nexali.Web.csproj" />
+    <ProjectReference Include="../../src/Clients/Avalonia/Nexali.App/Nexali.App.csproj" />
+  </ItemGroup>
+
+</Project>

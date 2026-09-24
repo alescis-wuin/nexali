@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/Clients/Web/Nexali.Web/Nexali.Web.csproj" />
+    <ProjectReference Include="../../src/Clients/Avalonia/Nexali.App/Nexali.App.csproj" />
+  </ItemGroup>
+
+</Project>

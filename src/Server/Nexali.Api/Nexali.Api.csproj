@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../Modules/Identity/Nexali.Modules.Identity/Nexali.Modules.Identity.csproj" />
+    <ProjectReference Include="../../Modules/Workspaces/Nexali.Modules.Workspaces/Nexali.Modules.Workspaces.csproj" />
+    <ProjectReference Include="../../Modules/Drive/Nexali.Modules.Drive/Nexali.Modules.Drive.csproj" />
+    <ProjectReference Include="../../Modules/Sharing/Nexali.Modules.Sharing/Nexali.Modules.Sharing.csproj" />
+    <ProjectReference Include="../../Modules/Sync/Nexali.Modules.Sync/Nexali.Modules.Sync.csproj" />
+    <ProjectReference Include="../../Modules/Administration/Nexali.Modules.Administration/Nexali.Modules.Administration.csproj" />
+    <ProjectReference Include="../../Modules/Audit/Nexali.Modules.Audit/Nexali.Modules.Audit.csproj" />
+  </ItemGroup>
+
+</Project>
