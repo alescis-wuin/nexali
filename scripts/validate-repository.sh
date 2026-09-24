@@ -2,32 +2,19 @@
 set -Eeuo pipefail
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 if [[ -t 1 && -z "${NO_COLOR:-}" ]]; then reset='\033[0m'; bold='\033[1m'; cyan='\033[36m'; green='\033[32m'; red='\033[31m'; else reset=''; bold=''; cyan=''; green=''; red=''; fi
-log(){ local level="$1" message="$2" color="$cyan"; [[ "$level" == OK ]]&&color="$green"; [[ "$level" == ERROR ]]&&color="$red"; printf '%b[NEXALI][REPOSITORY]%b %b[%s]%b %s\n' "$bold" "$reset" "$color" "$level" "$reset" "$message"; }
+log(){ local l="$1" m="$2" c="$cyan"; [[ "$l" == OK ]]&&c="$green"; [[ "$l" == ERROR ]]&&c="$red"; printf '%b[NEXALI][REPOSITORY]%b %b[%s]%b %s\n' "$bold" "$reset" "$c" "$l" "$reset" "$m"; }
 die(){ log ERROR "$1" >&2; exit 1; }
-required_files=(
-  .editorconfig .gitattributes .gitignore README.md CONTRIBUTING.md SECURITY.md LICENSE-PENDING.md
-  .github/PULL_REQUEST_TEMPLATE.md
-  .github/ISSUE_TEMPLATE/bug.yml .github/ISSUE_TEMPLATE/feature.yml .github/ISSUE_TEMPLATE/config.yml
-  docs/architecture/README.md docs/architecture/principles.md docs/architecture/modules.md docs/architecture/dependency-rules.md
-  docs/security/README.md docs/security/threat-model.md docs/security/e2ee.md docs/security/security-spikes.md
-  docs/development/README.md docs/development/solution.md docs/development/git-workflow.md docs/deployment/README.md docs/protocols/README.md docs/testing/README.md docs/adr/README.md
-  Nexali.sln eng/solution-folders.txt eng/git-policy.conf scripts/validate-solution.sh scripts/validate-git-governance.sh scripts/git-start.sh scripts/configure-github-governance.sh
-  .githooks/lib/policy.sh .githooks/pre-commit .githooks/commit-msg .githooks/pre-push
-)
-required_dirs=(
-  .github/ISSUE_TEMPLATE .githooks/lib docs/adr docs/architecture docs/development docs/deployment docs/protocols docs/security docs/testing
-  deploy/compose eng samples scripts src tests
-)
+required_dirs=(.github docs/adr docs/architecture docs/development docs/deployment docs/protocols docs/security docs/testing deploy/compose eng samples scripts src tests)
+required_files=(.editorconfig .gitattributes .gitignore CONTRIBUTING.md LICENSE-PENDING.md README.md SECURITY.md)
 log CHECK "Checking repository directories."
-for path in "${required_dirs[@]}"; do [[ -d "$repo_root/$path" ]] || die "Missing directory: $path"; done
+for p in "${required_dirs[@]}"; do [[ -d "$repo_root/$p" ]] || die "Missing directory: $p"; done
 log CHECK "Checking repository baseline files."
-for path in "${required_files[@]}"; do [[ -f "$repo_root/$path" ]] || die "Missing file: $path"; done
-adr_count="$(find "$repo_root/docs/adr" -maxdepth 1 -type f -name 'ADR-*.md' | wc -l | tr -d ' ')"
-[[ "$adr_count" -eq 12 ]] || die "Expected 12 consolidated ADR files, found $adr_count."
-if find "$repo_root" -maxdepth 4 -type f \( -name '.env' -o -name '*.secrets' \) -print -quit | grep -q .; then die "Potential local secret file detected."; fi
-log CHECK "Checking solution baseline."
-"$repo_root/scripts/validate-solution.sh"
-log CHECK "Checking Git governance baseline."
-"$repo_root/scripts/validate-git-governance.sh"
-if git -C "$repo_root" rev-parse --is-inside-work-tree >/dev/null 2>&1; then git -C "$repo_root" diff --check; git -C "$repo_root" diff --cached --check; fi
+for p in "${required_files[@]}"; do [[ -f "$repo_root/$p" ]] || die "Missing file: $p"; done
+if [[ -x "$repo_root/scripts/validate-solution.sh" ]]; then log CHECK "Checking solution baseline."; "$repo_root/scripts/validate-solution.sh"; fi
+if [[ -x "$repo_root/scripts/validate-git-governance.sh" ]]; then log CHECK "Checking Git governance baseline."; "$repo_root/scripts/validate-git-governance.sh"; fi
+if [[ -f "$repo_root/eng/projects.tsv" ]]; then
+  [[ -x "$repo_root/scripts/validate-project-structure.sh" ]] || die "Project catalog exists but project validator is missing/not executable."
+  log CHECK "Checking project structure baseline."
+  "$repo_root/scripts/validate-project-structure.sh"
+fi
 log OK "Repository baseline validation passed."

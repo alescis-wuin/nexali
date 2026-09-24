@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Nexali.Client/Nexali.Client.csproj" />
+    <ProjectReference Include="../Nexali.Sync.Protocol/Nexali.Sync.Protocol.csproj" />
+    <ProjectReference Include="../Nexali.Cryptography/Nexali.Cryptography.csproj" />
+  </ItemGroup>
+
+</Project>
