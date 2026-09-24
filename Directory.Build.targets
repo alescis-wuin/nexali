@@ -7,4 +7,18 @@
     <Error Condition="'$(LangVersion)' == 'preview'"
            Text="Nexali does not allow preview C# language versions." />
   </Target>
+
+  <Target Name="NexaliValidateCodeQualityPolicy"
+          BeforeTargets="CoreCompile">
+    <Error Condition="'$(TreatWarningsAsErrors)' != 'true'"
+           Text="Nexali requires TreatWarningsAsErrors=true." />
+    <Error Condition="'$(CodeAnalysisTreatWarningsAsErrors)' != 'true'"
+           Text="Nexali requires analyzer warnings to be treated as errors." />
+    <Error Condition="'$(AnalysisLevel)' != '10.0-recommended'"
+           Text="Nexali requires AnalysisLevel=10.0-recommended." />
+    <Error Condition="'$(AnalysisLevelSecurity)' != '10.0-all'"
+           Text="Nexali requires AnalysisLevelSecurity=10.0-all." />
+    <Error Condition="'$(EnforceCodeStyleInBuild)' != 'true'"
+           Text="Nexali requires EnforceCodeStyleInBuild=true." />
+  </Target>
 </Project>
