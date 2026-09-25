@@ -53,7 +53,13 @@ for branch in main testing develop; do
   log INFO "Applying branch protection to '$branch'."
   gh api --method PUT "repos/$repo/branches/$branch/protection" --input - >/dev/null <<'JSON'
 {
-  "required_status_checks": null,
+  "required_status_checks": {
+    "strict": true,
+    "contexts": [
+      "PR source chain",
+      "Repository gate"
+    ]
+  },
   "enforce_admins": true,
   "required_pull_request_reviews": {
     "dismiss_stale_reviews": false,
@@ -72,13 +78,13 @@ for branch in main testing develop; do
 }
 JSON
   gh api --method POST "repos/$repo/branches/$branch/protection/required_signatures" >/dev/null
-  protection="$(gh api "repos/$repo/branches/$branch/protection" --jq '[.enforce_admins.enabled,.allow_force_pushes.enabled,.allow_deletions.enabled,.required_linear_history.enabled,.required_signatures.enabled] | @tsv')"
-  IFS=$'\t' read -r admins force deletes linear signatures <<<"$protection"
-  [[ "$admins" == true && "$force" == false && "$deletes" == false && "$linear" == true && "$signatures" == true ]] || {
+  protection="$(gh api "repos/$repo/branches/$branch/protection" --jq '[.enforce_admins.enabled,.allow_force_pushes.enabled,.allow_deletions.enabled,.required_linear_history.enabled,.required_signatures.enabled,.required_status_checks.strict, (.required_status_checks.contexts | sort | join(","))] | @tsv')"
+  IFS=$'\t' read -r admins force deletes linear signatures strict_checks check_contexts <<<"$protection"
+  [[ "$admins" == true && "$force" == false && "$deletes" == false && "$linear" == true && "$signatures" == true && "$strict_checks" == true && "$check_contexts" == "PR source chain,Repository gate" ]] || {
     log ERROR "Protection verification failed for '$branch'." >&2; exit 1;
   }
-  log OK "'$branch' requires PR-based updates, signed commits, linear history and blocks force pushes/deletion."
+  log OK "'$branch' requires PR-based updates, signed commits, strict CI checks, linear history and blocks force pushes/deletion."
 done
 
-log WARN "The exact PR source chain (topic -> develop -> testing -> main) will become a remote CI gate in Phase 1.8. GitHub branch protection alone cannot express that source-branch relationship."
+log OK "The PR source chain is enforced by the required 'PR source chain' CI check."
 log OK "GitHub server-side governance configured successfully."

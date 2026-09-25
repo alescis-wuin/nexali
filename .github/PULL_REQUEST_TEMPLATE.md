@@ -36,6 +36,7 @@ Expected promotion path: `<type>/<name> -> develop -> testing -> main`.
 ## Checklist
 
 - [ ] Source and target branches respect the Nexali Gitflow.
+- [ ] Required CI checks (`PR source chain`, `Repository gate`) pass.
 - [ ] Branch name matches `<type>/<name>` when this is a topic branch.
 - [ ] Commit messages follow the required header/body/footer convention.
 - [ ] Commits are signed.

@@ -1,0 +1,6 @@
+# kind	id	version-or-name	sha-or-event	status
+action	actions/checkout	v7.0.1	3d3c42e5aac5ba805825da76410c181273ba90b1	active
+action	actions/setup-dotnet	v6.0.0	a98b56852c35b8e3190ac28c8c2271da59106c68	active
+runner	github-hosted	ubuntu-24.04	ubuntu-24.04	active
+check	pr-source-chain	PR source chain	pull_request	required
+check	repository-gate	Repository gate	pull_request+push	required
