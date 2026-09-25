@@ -1,0 +1,14 @@
+# kind	key	value
+msbuild	AnalysisLevel	10.0-recommended
+msbuild	AnalysisLevelSecurity	10.0-all
+msbuild	TreatWarningsAsErrors	true
+msbuild	CodeAnalysisTreatWarningsAsErrors	true
+msbuild	EnforceCodeStyleInBuild	true
+format	check	whitespace
+format	style-fix-severity	warn
+format	verify-no-changes	true
+editorconfig	IDE0005	warning
+editorconfig	IDE0055	warning
+editorconfig	IDE0060	warning
+editorconfig	csharp_style_prefer_braces	true:warning
+editorconfig	dotnet_style_require_accessibility_modifiers	for_non_interface_members:warning

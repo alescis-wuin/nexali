@@ -20,4 +20,7 @@ fi
 [[ -x "$repo_root/scripts/validate-build-baseline.sh" ]] || die "Build/package baseline validator is missing/not executable."
 log CHECK "Checking build/package baseline."
 "$repo_root/scripts/validate-build-baseline.sh"
+[[ -x "$repo_root/scripts/validate-code-quality.sh" ]] || die "Formatting/analyzer baseline validator is missing/not executable."
+log CHECK "Checking formatting/analyzer baseline."
+"$repo_root/scripts/validate-code-quality.sh"
 log OK "Repository baseline validation passed."
