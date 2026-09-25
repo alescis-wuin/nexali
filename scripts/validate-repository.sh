@@ -12,6 +12,9 @@ log CHECK "Checking repository baseline files."
 for p in "${required_files[@]}"; do [[ -f "$repo_root/$p" ]] || die "Missing file: $p"; done
 if [[ -x "$repo_root/scripts/validate-solution.sh" ]]; then log CHECK "Checking solution baseline."; "$repo_root/scripts/validate-solution.sh"; fi
 if [[ -x "$repo_root/scripts/validate-git-governance.sh" ]]; then log CHECK "Checking Git governance baseline."; "$repo_root/scripts/validate-git-governance.sh"; fi
+[[ -x "$repo_root/scripts/validate-ci-baseline.sh" ]] || die "CI baseline validator is missing/not executable."
+log CHECK "Checking CI baseline."
+"$repo_root/scripts/validate-ci-baseline.sh"
 if [[ -f "$repo_root/eng/projects.tsv" ]]; then
   [[ -x "$repo_root/scripts/validate-project-structure.sh" ]] || die "Project catalog exists but project validator is missing/not executable."
   log CHECK "Checking project structure baseline."

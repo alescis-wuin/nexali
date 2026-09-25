@@ -99,7 +99,7 @@ Normal flow:
 2. `develop` -> pull request to `testing`.
 3. `testing` -> pull request to `main`.
 
-The source/base relationship becomes a required remote CI check in Phase 1.8. Until that gate exists, it is a mandatory project rule documented here and reinforced by local tooling.
+The source/base relationship is enforced by the required `PR source chain` GitHub Actions check introduced in Phase 1.8. The same policy is locally testable with `./scripts/validate-pr-source.sh --self-test`.
 
 ## Local enforcement
 
@@ -121,4 +121,4 @@ When the GitHub repository exists and `origin` is configured, run once:
 ./scripts/configure-github-governance.sh --bootstrap
 ```
 
-This creates any missing remote protected branches once, then enables server-side protection. Subsequent direct pushes and force pushes to `main`, `testing`, and `develop` are rejected by GitHub.
+This creates any missing remote protected branches once, then enables server-side protection. After Phase 1.8 is merged and the CI checks have executed successfully, the same command also requires the strict `PR source chain` and `Repository gate` checks. Subsequent direct pushes and force pushes to `main`, `testing`, and `develop` are rejected by GitHub.
