@@ -10,3 +10,4 @@ CommunityToolkit.Mvvm	8.4.2	avalonia-shared	active
 Microsoft.NET.Test.Sdk	18.10.1	tests	active
 xunit.v3	4.0.1	tests	active
 xunit.runner.visualstudio	4.0.0	tests	active
+TngTech.ArchUnitNET.xUnitV3	0.13.4	architecture-tests	active

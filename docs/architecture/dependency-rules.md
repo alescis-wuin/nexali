@@ -29,3 +29,7 @@ Web, Desktop, Android, and iOS clients use `Nexali.Client`, `Nexali.Client.Sync`
 ## Cross-cutting rule
 
 A new shared abstraction is introduced only after more than one real consumer demonstrates the need. Do not solve coupling by creating a generic `Common`, `Utils`, or `Helpers` project.
+
+## Executable enforcement
+
+Phase 1.7 maps these dependency rules to executable xUnit tests in `Nexali.Architecture.Tests`. Project-reference rules are evaluated directly from the repository graph, while ArchUnitNET analyzes compiled assemblies in Debug configuration. The machine-readable rule registry is `eng/architecture-rules.tsv`.

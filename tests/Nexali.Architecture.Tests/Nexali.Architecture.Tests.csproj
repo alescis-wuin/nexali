@@ -14,6 +14,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="TngTech.ArchUnitNET.xUnitV3">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +41,14 @@
     <ProjectReference Include="../../src/Libraries/Nexali.Client.Sync/Nexali.Client.Sync.csproj" />
     <ProjectReference Include="../../src/Clients/Web/Nexali.Web/Nexali.Web.csproj" />
     <ProjectReference Include="../../src/Clients/Avalonia/Nexali.App/Nexali.App.csproj" />
+    <ProjectReference Include="../../src/Modules/Calendar/Nexali.Modules.Calendar/Nexali.Modules.Calendar.csproj" />
+    <ProjectReference Include="../../src/Modules/Tasks/Nexali.Modules.Tasks/Nexali.Modules.Tasks.csproj" />
+    <ProjectReference Include="../../src/Modules/Kanban/Nexali.Modules.Kanban/Nexali.Modules.Kanban.csproj" />
+    <ProjectReference Include="../../src/Modules/Chat/Nexali.Modules.Chat/Nexali.Modules.Chat.csproj" />
+    <ProjectReference Include="../../src/Clients/Avalonia/Nexali.Desktop/Nexali.Desktop.csproj" />
+    <ProjectReference Include="../../src/Clients/Avalonia/Nexali.Mobile.Android/Nexali.Mobile.Android.csproj" />
+    <ProjectReference Include="../../src/Clients/Avalonia/Nexali.Mobile.iOS/Nexali.Mobile.iOS.csproj" />
+    <ProjectReference Include="../../src/Tools/Nexali.Cli/Nexali.Cli.csproj" />
   </ItemGroup>
 
 </Project>

@@ -69,3 +69,11 @@ tests/Nexali.EndToEnd.Tests/Nexali.EndToEnd.Tests.csproj	src/Server/Nexali.Api/N
 tests/Nexali.EndToEnd.Tests/Nexali.EndToEnd.Tests.csproj	src/Clients/Web/Nexali.Web/Nexali.Web.csproj
 tests/Nexali.BackupRestore.Tests/Nexali.BackupRestore.Tests.csproj	src/Server/Nexali.Api/Nexali.Api.csproj
 tests/Nexali.BackupRestore.Tests/Nexali.BackupRestore.Tests.csproj	src/Libraries/Nexali.Cryptography/Nexali.Cryptography.csproj
+tests/Nexali.Architecture.Tests/Nexali.Architecture.Tests.csproj	src/Modules/Calendar/Nexali.Modules.Calendar/Nexali.Modules.Calendar.csproj
+tests/Nexali.Architecture.Tests/Nexali.Architecture.Tests.csproj	src/Modules/Tasks/Nexali.Modules.Tasks/Nexali.Modules.Tasks.csproj
+tests/Nexali.Architecture.Tests/Nexali.Architecture.Tests.csproj	src/Modules/Kanban/Nexali.Modules.Kanban/Nexali.Modules.Kanban.csproj
+tests/Nexali.Architecture.Tests/Nexali.Architecture.Tests.csproj	src/Modules/Chat/Nexali.Modules.Chat/Nexali.Modules.Chat.csproj
+tests/Nexali.Architecture.Tests/Nexali.Architecture.Tests.csproj	src/Clients/Avalonia/Nexali.Desktop/Nexali.Desktop.csproj
+tests/Nexali.Architecture.Tests/Nexali.Architecture.Tests.csproj	src/Clients/Avalonia/Nexali.Mobile.Android/Nexali.Mobile.Android.csproj
+tests/Nexali.Architecture.Tests/Nexali.Architecture.Tests.csproj	src/Clients/Avalonia/Nexali.Mobile.iOS/Nexali.Mobile.iOS.csproj
+tests/Nexali.Architecture.Tests/Nexali.Architecture.Tests.csproj	src/Tools/Nexali.Cli/Nexali.Cli.csproj
