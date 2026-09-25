@@ -46,6 +46,7 @@ The human- and script-readable package registry is `eng/package-baseline.tsv`.
 | Microsoft.NET.Test.Sdk | 18.10.1 | active compatibility test adapter baseline |
 | xunit.v3 | 4.0.1 | active test framework |
 | xunit.runner.visualstudio | 4.0.0 | active VSTest/Test Explorer compatibility |
+| TngTech.ArchUnitNET.xUnitV3 | 0.13.4 | active architecture-test bytecode rules |
 
 ## Mobile boundary
 

@@ -1,0 +1,10 @@
+# id	scope	enforcement	description
+ARCH001	project-graph	xunit	Production project references must remain acyclic.
+ARCH002	modules	xunit	Module implementations must not reference other module implementation projects.
+ARCH003	contracts	xunit	Contract projects must not depend on implementations, hosts, clients, or tools.
+ARCH004	clients	xunit	Client projects must not reference server or module projects.
+ARCH005	libraries	xunit	Shared libraries must remain independent from server, module, client, and tool projects.
+ARCH006	composition-root	xunit	Only the server host may reference module implementation projects.
+ARCH007	project-naming	xunit	Generic Common, Utils, Utilities, and Helpers project buckets are forbidden.
+ARCH008	module-bytecode	archunitnet	Nexali.Modules namespace slices must remain free of dependency cycles.
+ARCH009	assembly-catalog	xunit	Architecture bytecode analysis must cover every production project assembly.
