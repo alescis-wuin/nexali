@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nexali.local/schemas/patch-manifest-v1.json",
+  "title": "Nexali Patch Manifest v1",
+  "type": "object",
+  "required": ["schemaVersion", "project", "patch", "git", "operations", "validations"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "project": {
+      "type": "object",
+      "required": ["id", "guid", "repository"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+        "guid": {"type": "string"},
+        "repository": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "patch": {
+      "type": "object",
+      "required": ["version", "major", "step", "fix", "name", "requires"],
+      "properties": {
+        "version": {"type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"},
+        "major": {"type": "integer", "minimum": 0},
+        "step": {"type": "integer", "minimum": 0},
+        "fix": {"type": "integer", "minimum": 0},
+        "name": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+        "requires": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      }
+    },
+    "git": {
+      "type": "object",
+      "required": ["baseBranch", "baseCommit", "topicBranch", "commitMessage", "push"],
+      "properties": {
+        "baseBranch": {"enum": ["develop", "testing", "main"]},
+        "baseCommit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "topicBranch": {"type": "string"},
+        "commitMessage": {"type": "string"},
+        "push": {"type": "boolean"}
+      }
+    },
+    "operations": {"type": "array", "minItems": 1},
+    "validations": {"type": "array", "minItems": 1}
+  }
+}

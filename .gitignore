@@ -25,6 +25,7 @@ coverage/
 *.secrets
 secrets/
 .nexali-bootstrap-backup/
+.work/
 
 # Temporary files
 *.tmp

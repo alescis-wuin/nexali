@@ -1,0 +1,12 @@
+{
+  "appliedAt": "2026-09-25T11:12:14.067Z",
+  "baseCommit": "91c857c66c9a54a35823d8682421f08139638770",
+  "name": "patch-workflow-hardening",
+  "packageSha256": "92e0b07786c11f91602dfd954d34fa6a24e485087ce6fd82e6667999bcbe5278",
+  "projectGuid": "492c51d4-032f-5d3b-bc45-47656b1b47de",
+  "projectId": "nexali",
+  "schemaVersion": 1,
+  "topicBranch": "build/patch-workflow-hardening",
+  "transactionId": "20260925T111210Z-1e0807f0",
+  "version": "1.8.1"
+}

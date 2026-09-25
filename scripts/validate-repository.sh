@@ -15,6 +15,9 @@ if [[ -x "$repo_root/scripts/validate-git-governance.sh" ]]; then log CHECK "Che
 [[ -x "$repo_root/scripts/validate-ci-baseline.sh" ]] || die "CI baseline validator is missing/not executable."
 log CHECK "Checking CI baseline."
 "$repo_root/scripts/validate-ci-baseline.sh"
+[[ -x "$repo_root/scripts/validate-patch-system.sh" ]] || die "Patch-system validator is missing/not executable."
+log CHECK "Checking durable patch-system baseline."
+"$repo_root/scripts/validate-patch-system.sh"
 if [[ -f "$repo_root/eng/projects.tsv" ]]; then
   [[ -x "$repo_root/scripts/validate-project-structure.sh" ]] || die "Project catalog exists but project validator is missing/not executable."
   log CHECK "Checking project structure baseline."
